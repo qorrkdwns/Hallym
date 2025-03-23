@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>20215166 백강준</title> 
+    </head>
+    <body>
+        <script type = "module">
+            import * as THREE from 'https://unpkg.com/three/build/three.module.js' 
+            
+            const scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xafafdf);
+
+            const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+
+            const renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+           const vertices1 = new Float32Array([ //머리카락
+                -0.8, 0.5, 0,
+                0.8, 0.5, 0,
+                0.8, 0.8, 0,
+                -0.8, 0.8, 0,
+           ]);
+
+           const vertices2 = new Float32Array([ //얼굴
+                -0.8, -0.8, 0,
+                0.8, -0.8, 0,
+                0.8, 0.5, 0,
+                -0.8, 0.5, 0,
+           ]);
+
+           const vertices3 = new Float32Array([ //왼쪽 눈
+                -0.5, 0.2, 0,
+                -0.3, 0.2, 0,
+                -0.3, 0.4, 0,
+                -0.5, 0.4, 0,
+           ]);
+
+           const vertices4 = new Float32Array([ //오른쪽 눈
+                0.3, 0.2, 0,
+                0.5, 0.2, 0,
+                0.5, 0.4, 0,
+                0.3, 0.4, 0,
+           ]);
+
+           const vertices5 = new Float32Array([ //코(라인)
+                0, 0.18, 0,
+                -0.05, -0.05, 0,
+                0.12, -0.05, 0,
+           ])
+
+           const vertices6 = new Float32Array([ //입
+                -0.2, -0.6, 0,
+                0.2, -0.6, 0,
+                0.2, -0.4, 0,
+                -0.2, -0.4, 0,
+           ])
+
+           const colors1 = new Float32Array([ //머리카락, 눈(검은색)
+               0, 0, 0,
+               0, 0, 0,
+               0, 0, 0,
+               0, 0, 0,
+            ]);
+
+            const colors2 = new Float32Array([ //얼굴(살구색)
+                1.0, 0.8, 0.6,
+                1.0, 0.8, 0.6,
+                1.0, 0.8, 0.6,
+                1.0, 0.8, 0.6,
+            ]);
+
+            const color3 = new Float32Array([ //입(분홍색)
+                1.0, 0.714, 0.757,
+                1.0, 0.714, 0.757,
+                1.0, 0.714, 0.757,
+                1.0, 0.714, 0.757,
+            ]);
+
+            const indices = [0, 1, 2, 0, 2, 3]; //머리카락, 얼굴, 눈, 입 인덱스
+            const lineIndex1 = [0, 1, 2]; //코(라인) 인덱스
+            
+            const geometry1 = new THREE.BufferGeometry(); //머리카락
+            geometry1.setAttribute('position', new THREE.Float32BufferAttribute(vertices1, 3));
+            geometry1.setAttribute('color', new THREE.Float32BufferAttribute(colors1, 3));
+            geometry1.setIndex(indices);
+            const material1 = new THREE.MeshBasicMaterial({vertexColors: true});
+            const mesh1 = new THREE.Mesh(geometry1, material1);
+            scene.add(mesh1);
+
+            const geometry2 = new THREE.BufferGeometry(); //얼굴
+            geometry2.setAttribute('position', new THREE.Float32BufferAttribute(vertices2, 3));
+            geometry2.setAttribute('color', new THREE.Float32BufferAttribute(colors2, 3));
+            geometry2.setIndex(indices);
+            const material2 = new THREE.MeshBasicMaterial({vertexColors: true});
+            const mesh2 = new THREE.Mesh(geometry2, material2);
+            scene.add(mesh2);
+
+            const geometry2_outline = new THREE.BufferGeometry(); //얼굴 외곽선
+            geometry2_outline.setAttribute('position', new THREE.Float32BufferAttribute(vertices2, 3));
+            const material2_outline = new THREE.LineBasicMaterial({ color: 0x000000 });
+            const line2 = new THREE.LineLoop(geometry2_outline, material2_outline); // 폐곡선인 LineLoop 사용
+            scene.add(line2);
+
+            const geometry3 = new THREE.BufferGeometry(); //왼쪽 눈
+            geometry3.setAttribute('position', new THREE.Float32BufferAttribute(vertices3, 3));
+            geometry3.setAttribute('color', new THREE.Float32BufferAttribute(colors1, 3));
+            geometry3.setIndex(indices);
+            const material3 = new THREE.MeshBasicMaterial({vertexColors: true});
+            const mesh3 = new THREE.Mesh(geometry3, material3);
+            scene.add(mesh3);
+
+            const geometry4 = new THREE.BufferGeometry(); //오른쪽 눈
+            geometry4.setAttribute('position', new THREE.Float32BufferAttribute(vertices4, 3));
+            geometry4.setAttribute('color', new THREE.Float32BufferAttribute(colors1, 3));
+            geometry4.setIndex(indices);
+            const material4 = new THREE.MeshBasicMaterial({vertexColors: true});
+            const mesh4 = new THREE.Mesh(geometry4, material4);
+            scene.add(mesh4);
+
+            const geometry_line = new THREE.BufferGeometry(); //코(라인)
+            geometry_line.setAttribute('position', new THREE.Float32BufferAttribute(vertices5, 3));
+            geometry_line.setAttribute('color', new THREE.Float32BufferAttribute(colors1, 3));
+            geometry_line.setIndex(lineIndex1);
+            const material_line = new THREE.LineBasicMaterial({color : 0x000000});
+            const lines = new THREE.Line(geometry_line, material_line);
+            scene.add(lines);
+
+            const geometry5 = new THREE.BufferGeometry(); //입
+            geometry5.setAttribute('position', new THREE.Float32BufferAttribute(vertices6, 3));
+            geometry5.setAttribute('color', new THREE.Float32BufferAttribute(color3, 3));
+            geometry5.setIndex(indices);
+            const material5 = new THREE.MeshBasicMaterial({vertexColors: true});
+            const mesh5 = new THREE.Mesh(geometry5, material5);
+            scene.add(mesh5);
+
+            const geometry5_outline = new THREE.BufferGeometry(); //입 외곽선
+            geometry5_outline.setAttribute('position', new THREE.Float32BufferAttribute(vertices6, 3));
+            const material5_outline = new THREE.LineBasicMaterial({ color: 0xFF8099 });
+            const line5 = new THREE.LineLoop(geometry5_outline, material5_outline); // 폐곡선인 LineLoop 사용
+            scene.add(line5);
+
+            renderer.render(scene, camera);
+
+        </script>
+    </body>
+</html>
