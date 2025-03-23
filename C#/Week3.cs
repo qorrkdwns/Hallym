@@ -314,7 +314,6 @@ h = 2
 2025년 3월 20일은 목요일입니다. 
  */
 
-/*
 Console.Write("년도를 입력하세요 (2000-2100): ");
 int year = int.Parse(Console.ReadLine());
 Console.Write("월을 입력하세요 (1-12): ");
@@ -364,4 +363,3 @@ switch (h)
         Console.WriteLine(year + "년 " + month + "월 " + day + "일은 금요일입니다.");
         break;
 }
-*/
