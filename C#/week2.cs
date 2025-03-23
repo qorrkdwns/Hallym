@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 //2주차 실습
-/*
+
     int iVal = 30000;
     const Int32 cVal = 0X3ABC; //0X3ABC == 15036
 
@@ -120,4 +120,3 @@ Console.WriteLine(DateTime.Now.Day);
 Console.WriteLine(DateTime.Now.Hour);
 Console.WriteLine(DateTime.Now.Minute);
 Console.WriteLine(DateTime.Now.Second);
-*/
